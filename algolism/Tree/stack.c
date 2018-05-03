@@ -1,31 +1,45 @@
 #include "node.h"
 #define MAX 100
 
-typedef struct _StactNode{
+typedef struct _StackNode{
 	Node *data;
-	struct _StactNode *Next;
-}StactNode;
+	struct _StackNode *Next;
+}StackNode;
 
-StackNode* TopNode, NextNode;
+StackNode *TopNode;
 
 void InitializeStack();
-void Push(Node *)
+void Push(Node *);
 Node* Pop();
 int IsStackEmpty();
 
-void InitializeStack(){
+void InitializeStack() {
 	TopNode = (StackNode *)malloc(sizeof(StackNode));
 	TopNode->Next = NULL;
 }
 
-void Push(Node *ptrNode){
-	NextNode = (StackNode *)malloc(sizeof(StackNode));
+void Push(Node *ptrNode) {
+	StackNode *NextNode = (StackNode *)malloc(sizeof(StackNode));
 	NextNode->data = ptrNode;
-	
+
 	NextNode->Next = TopNode->Next;
 	TopNode->Next = NextNode;
 }
 
-Node* Pop(){
+Node* Pop() {
+	StackNode *RemvNode = (StackNode *)malloc(sizeof(StackNode));
+	Node* rtNode = (Node *)malloc(sizeof(StackNode));
 
+	RemvNode = TopNode->Next;
+	TopNode->Next = TopNode->Next->Next;
+
+	rtNode = RemvNode->data;
+	free(RemvNode);
+	return rtNode;
+}
+
+int IsStackEmpty(){
+	if(TopNode->Next == NULL)
+		return TRUE;
+	else	return FALSE;
 }

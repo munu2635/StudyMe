@@ -9,8 +9,8 @@
 
 typedef struct _Node {
 	char data;
-	struct _Node *left;
-	struct _Node *right;
+	struct _Node *Left;
+	struct _Node *Right;
 }Node;
 
 Node *HeadNode, *EndNode;
