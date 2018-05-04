@@ -30,7 +30,7 @@ void Put(Node *ptrNode) {
 }
 
 Node* Get() {
-	QueueNode *RemvNode = (QueueNode *)malloc(sizeof(QueueNode));
+	QueueNode *RemvNode;
 	Node* rtNode = (Node *)malloc(sizeof(Node));
 
 	RemvNode = BottomNode->Next;
@@ -41,7 +41,7 @@ Node* Get() {
 	return rtNode;
 }
 
-int IsStackEmpty(){
+int IsQueueEmpty(){
 	if(TopNode->Next == BottomNode)
 		return TRUE;
 	else	return FALSE;

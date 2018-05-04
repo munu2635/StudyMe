@@ -25,7 +25,7 @@ void MakeTree(){
 	LeftChild->data = 'B';
 
 	RightChild = (Node *)malloc(sizeof(Node));
-	RightChild->data = 'c';
+	RightChild->data = 'C';
 
 	Parent->Left = LeftChild;
 	Parent->Right = RightChild;
@@ -64,3 +64,5 @@ void MakeTree(){
 	Parent->Left = LeftChild;
 	Parent->Right = RightChild;
 }
+
+
