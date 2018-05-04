@@ -1,5 +1,6 @@
+//linkedlist Stack
+
 #include "node.h"
-#define MAX 100
 
 typedef struct _StackNode{
 	Node *data;
@@ -28,7 +29,7 @@ void Push(Node *ptrNode) {
 
 Node* Pop() {
 	StackNode *RemvNode = (StackNode *)malloc(sizeof(StackNode));
-	Node* rtNode = (Node *)malloc(sizeof(StackNode));
+	Node* rtNode = (Node *)malloc(sizeof(Node));
 
 	RemvNode = TopNode->Next;
 	TopNode->Next = TopNode->Next->Next;

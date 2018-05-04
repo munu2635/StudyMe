@@ -27,6 +27,7 @@ void Traverse(Node *ptrNode){
 		if(ptrNode->Left != EndNode)
 			Push(ptrNode->Left);
 	}
+	printf(" end\n");
 }
 
 
