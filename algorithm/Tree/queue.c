@@ -18,19 +18,24 @@ void InitializeQueue() {
 	TopNode = (QueueNode *)malloc(sizeof(QueueNode));
 	BottomNode = (QueueNode *)malloc(sizeof(QueueNode));
 	TopNode->Next = BottomNode;
-	BottomNode->Next = BottomNode;
+	BottomNode->Next = TopNode;
 }
 
 void Put(Node *ptrNode) {
 	QueueNode *NextNode = (QueueNode *)malloc(sizeof(QueueNode));
 	NextNode->data = ptrNode;
 
-	NextNode->Next = TopNode->Next;
-	TopNode->Next = NextNode;
+	if(TopNode->Next = Bottom)
+		BottomNode->Next = NextNode;
+		NextNode->Next = BottomNode;
+	else{
+		NextNode->Next = TopNext;
+		TopNode->Next = NextNode;
+	}
 }
 
 Node* Get() {
-	QueueNode *RemvNode;
+	QueueNode *RemvNode =(QueueNode *)malloc(sizeof(QueueNode));
 	Node* rtNode = (Node *)malloc(sizeof(Node));
 
 	RemvNode = BottomNode->Next;
