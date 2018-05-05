@@ -7,7 +7,7 @@ typedef struct _QueueNode{
 	struct _QueueNode *Next;
 }QueueNode;
 
-QueueNode *TopNode, *BottomNode;
+QueueNode *FrontNode, *RearNode;
 
 void InitializeQueue();
 void Put(Node *);
@@ -15,31 +15,33 @@ Node* Get();
 int IsQueueEmpty();
 
 void InitializeQueue() {
-	TopNode = (QueueNode *)malloc(sizeof(QueueNode));
-	BottomNode = (QueueNode *)malloc(sizeof(QueueNode));
-	TopNode->Next = BottomNode;
-	BottomNode->Next = TopNode;
+	FrontNode = (QueueNode *)malloc(sizeof(QueueNode));
+	RearNode = (QueueNode *)malloc(sizeof(QueueNode));
+	FrontNode->Next = RearNode;
+	RearNode->Next = RearNode;
 }
 
 void Put(Node *ptrNode) {
 	QueueNode *NextNode = (QueueNode *)malloc(sizeof(QueueNode));
 	NextNode->data = ptrNode;
 
-	if(TopNode->Next = Bottom)
-		BottomNode->Next = NextNode;
-		NextNode->Next = BottomNode;
-	else{
-		NextNode->Next = TopNext;
-		TopNode->Next = NextNode;
+	if(FrontNode->Next == RearNode) {
+		FrontNode->Next = NextNode;
+		RearNode->Next = NextNode;
+		NextNode->Next = RearNode;
+	} else {
+		RearNode->Next->Next = NextNode;
+		NextNode->Next = RearNode;
+		RearNode->Next = NextNode;
 	}
 }
 
 Node* Get() {
-	QueueNode *RemvNode =(QueueNode *)malloc(sizeof(QueueNode));
-	Node* rtNode = (Node *)malloc(sizeof(Node));
+	QueueNode *RemvNode;
+	Node* rtNode;
 
-	RemvNode = BottomNode->Next;
-	BottomNode->Next = BottomNode->Next->Next;
+	RemvNode = FrontNode->Next;
+	FrontNode->Next = FrontNode->Next->Next;
 
 	rtNode = RemvNode->data;
 	free(RemvNode);
@@ -47,7 +49,7 @@ Node* Get() {
 }
 
 int IsQueueEmpty(){
-	if(TopNode->Next == BottomNode)
+	if(FrontNode->Next == RearNode)
 		return TRUE;
 	else	return FALSE;
 }
