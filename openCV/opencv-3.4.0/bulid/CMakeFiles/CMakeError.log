@@ -1,0 +1,318 @@
+Compilation failed:
+    source file: '/home/laply/study/StudyMe/openCV/opencv-3.4.0/cmake/checks/cxx11.cpp'
+    check option: ''
+===== BUILD LOG =====
+Change Dir: /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_89443/fast"
+/usr/bin/make -f CMakeFiles/cmTC_89443.dir/build.make CMakeFiles/cmTC_89443.dir/build
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 들어감
+Building CXX object CMakeFiles/cmTC_89443.dir/cxx11.cpp.o
+/usr/bin/c++     -fPIE   -o CMakeFiles/cmTC_89443.dir/cxx11.cpp.o -c /home/laply/study/StudyMe/openCV/opencv-3.4.0/cmake/checks/cxx11.cpp
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/cmake/checks/cxx11.cpp:4:2: error: #error "C++11 is not supported"
+ #error "C++11 is not supported"
+  ^
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/cmake/checks/cxx11.cpp: In function ‘int main()’:
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/cmake/checks/cxx11.cpp:11:10: error: ‘res’ does not name a type
+     auto res = test();
+          ^
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/cmake/checks/cxx11.cpp:12:12: error: ‘res’ was not declared in this scope
+     return res;
+            ^
+CMakeFiles/cmTC_89443.dir/build.make:65: 'CMakeFiles/cmTC_89443.dir/cxx11.cpp.o' 타겟에 대한 명령이 실패했습니다
+make[1]: *** [CMakeFiles/cmTC_89443.dir/cxx11.cpp.o] 오류 1
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 나감
+Makefile:126: 'cmTC_89443/fast' 타겟에 대한 명령이 실패했습니다
+make: *** [cmTC_89443/fast] 오류 2
+
+===== END =====
+
+Build output check failed:
+    Regex: 'command line option .* is valid for .* but not for C\+\+'
+    Output line: 'cc1plus: warning: command line option ‘-Wmissing-prototypes’ is valid for C/ObjC but not for C++'
+Compilation failed:
+    source file: '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx'
+    check option: ' -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations  -Wmissing-prototypes'
+===== BUILD LOG =====
+Change Dir: /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_fc268/fast"
+/usr/bin/make -f CMakeFiles/cmTC_fc268.dir/build.make CMakeFiles/cmTC_fc268.dir/build
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 들어감
+Building CXX object CMakeFiles/cmTC_fc268.dir/src.cxx.o
+/usr/bin/c++     -fPIE   -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -o CMakeFiles/cmTC_fc268.dir/src.cxx.o -c /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx
+cc1plus: warning: command line option ‘-Wmissing-prototypes’ is valid for C/ObjC but not for C++
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx:1:0: warning: ignoring #pragma   [-Wunknown-pragmas]
+ #pragma
+ ^
+Linking CXX executable cmTC_fc268
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fc268.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_fc268.dir/src.cxx.o  -o cmTC_fc268 -rdynamic 
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 나감
+
+===== END =====
+
+Build output check failed:
+    Regex: 'command line option .* is valid for .* but not for C\+\+'
+    Output line: 'cc1plus: warning: command line option ‘-Wstrict-prototypes’ is valid for C/ObjC but not for C++'
+Compilation failed:
+    source file: '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx'
+    check option: ' -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations  -Wstrict-prototypes'
+===== BUILD LOG =====
+Change Dir: /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a0d7f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_a0d7f.dir/build.make CMakeFiles/cmTC_a0d7f.dir/build
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 들어감
+Building CXX object CMakeFiles/cmTC_a0d7f.dir/src.cxx.o
+/usr/bin/c++     -fPIE   -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wstrict-prototypes -o CMakeFiles/cmTC_a0d7f.dir/src.cxx.o -c /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx
+cc1plus: warning: command line option ‘-Wstrict-prototypes’ is valid for C/ObjC but not for C++
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx:1:0: warning: ignoring #pragma   [-Wunknown-pragmas]
+ #pragma
+ ^
+Linking CXX executable cmTC_a0d7f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a0d7f.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_a0d7f.dir/src.cxx.o  -o cmTC_a0d7f -rdynamic 
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 나감
+
+===== END =====
+
+Build output check failed:
+    Regex: 'command line option .* is valid for .* but not for C'
+    Output line: 'cc1: warning: command line option ‘-Wsign-promo’ is valid for C++/ObjC++ but not for C'
+Compilation failed:
+    source file: '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c'
+    check option: ' -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow  -Wsign-promo'
+===== BUILD LOG =====
+Change Dir: /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_71aee/fast"
+/usr/bin/make -f CMakeFiles/cmTC_71aee.dir/build.make CMakeFiles/cmTC_71aee.dir/build
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 들어감
+Building C object CMakeFiles/cmTC_71aee.dir/src.c.o
+/usr/bin/cc    -fPIE   -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wsign-promo -o CMakeFiles/cmTC_71aee.dir/src.c.o   -c /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c
+cc1: warning: command line option ‘-Wsign-promo’ is valid for C++/ObjC++ but not for C
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c:1:0: warning: ignoring #pragma   [-Wunknown-pragmas]
+ #pragma
+ ^
+Linking C executable cmTC_71aee
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_71aee.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_71aee.dir/src.c.o  -o cmTC_71aee -rdynamic 
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 나감
+
+===== END =====
+
+Build output check failed:
+    Regex: 'command line option .* is valid for .* but not for C'
+    Output line: 'cc1: warning: command line option ‘-Wno-delete-non-virtual-dtor’ is valid for C++/ObjC++ but not for C'
+Compilation failed:
+    source file: '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c'
+    check option: ' -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Winit-self -Wno-narrowing  -Wno-delete-non-virtual-dtor'
+===== BUILD LOG =====
+Change Dir: /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ff033/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ff033.dir/build.make CMakeFiles/cmTC_ff033.dir/build
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 들어감
+Building C object CMakeFiles/cmTC_ff033.dir/src.c.o
+/usr/bin/cc    -fPIE   -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Winit-self -Wno-narrowing -Wno-delete-non-virtual-dtor -o CMakeFiles/cmTC_ff033.dir/src.c.o   -c /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c
+cc1: warning: command line option ‘-Wno-delete-non-virtual-dtor’ is valid for C++/ObjC++ but not for C
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c:1:0: warning: ignoring #pragma   [-Wunknown-pragmas]
+ #pragma
+ ^
+Linking C executable cmTC_ff033
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ff033.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_ff033.dir/src.c.o  -o cmTC_ff033 -rdynamic 
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 나감
+
+===== END =====
+
+Build output check failed:
+    Regex: 'unrecognized .*option'
+    Output line: 'cc1plus: warning: unrecognized command line option ‘-Wno-unnamed-type-template-args’'
+Compilation failed:
+    source file: '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx'
+    check option: ' -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wundef -Winit-self -Wpointer-arith -Wshadow -Wsign-promo -Wuninitialized -Winit-self -Wno-narrowing -Wno-delete-non-virtual-dtor  -Wno-unnamed-type-template-args'
+===== BUILD LOG =====
+Change Dir: /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_2d6fe/fast"
+/usr/bin/make -f CMakeFiles/cmTC_2d6fe.dir/build.make CMakeFiles/cmTC_2d6fe.dir/build
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 들어감
+Building CXX object CMakeFiles/cmTC_2d6fe.dir/src.cxx.o
+/usr/bin/c++     -fPIE   -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wundef -Winit-self -Wpointer-arith -Wshadow -Wsign-promo -Wuninitialized -Winit-self -Wno-narrowing -Wno-delete-non-virtual-dtor -Wno-unnamed-type-template-args -o CMakeFiles/cmTC_2d6fe.dir/src.cxx.o -c /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx:1:0: warning: ignoring #pragma   [-Wunknown-pragmas]
+ #pragma
+ ^
+cc1plus: warning: unrecognized command line option ‘-Wno-unnamed-type-template-args’
+Linking CXX executable cmTC_2d6fe
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2d6fe.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_2d6fe.dir/src.cxx.o  -o cmTC_2d6fe -rdynamic 
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 나감
+
+===== END =====
+
+Build output check failed:
+    Regex: 'unrecognized .*option'
+    Output line: 'cc1: warning: unrecognized command line option ‘-Wno-unnamed-type-template-args’'
+Compilation failed:
+    source file: '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c'
+    check option: ' -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Winit-self -Wno-narrowing  -Wno-unnamed-type-template-args'
+===== BUILD LOG =====
+Change Dir: /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_1a9cc/fast"
+/usr/bin/make -f CMakeFiles/cmTC_1a9cc.dir/build.make CMakeFiles/cmTC_1a9cc.dir/build
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 들어감
+Building C object CMakeFiles/cmTC_1a9cc.dir/src.c.o
+/usr/bin/cc    -fPIE   -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Winit-self -Wno-narrowing -Wno-unnamed-type-template-args -o CMakeFiles/cmTC_1a9cc.dir/src.c.o   -c /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c:1:0: warning: ignoring #pragma   [-Wunknown-pragmas]
+ #pragma
+ ^
+cc1: warning: unrecognized command line option ‘-Wno-unnamed-type-template-args’
+Linking C executable cmTC_1a9cc
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1a9cc.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_1a9cc.dir/src.c.o  -o cmTC_1a9cc -rdynamic 
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 나감
+
+===== END =====
+
+Build output check failed:
+    Regex: 'unrecognized .*option'
+    Output line: 'cc1plus: warning: unrecognized command line option ‘-Wno-implicit-fallthrough’'
+Compilation failed:
+    source file: '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx'
+    check option: ' -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wundef -Winit-self -Wpointer-arith -Wshadow -Wsign-promo -Wuninitialized -Winit-self -Wno-narrowing -Wno-delete-non-virtual-dtor -Wno-comment  -Wno-implicit-fallthrough'
+===== BUILD LOG =====
+Change Dir: /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_cd473/fast"
+/usr/bin/make -f CMakeFiles/cmTC_cd473.dir/build.make CMakeFiles/cmTC_cd473.dir/build
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 들어감
+Building CXX object CMakeFiles/cmTC_cd473.dir/src.cxx.o
+/usr/bin/c++     -fPIE   -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wundef -Winit-self -Wpointer-arith -Wshadow -Wsign-promo -Wuninitialized -Winit-self -Wno-narrowing -Wno-delete-non-virtual-dtor -Wno-comment -Wno-implicit-fallthrough -o CMakeFiles/cmTC_cd473.dir/src.cxx.o -c /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx:1:0: warning: ignoring #pragma   [-Wunknown-pragmas]
+ #pragma
+ ^
+cc1plus: warning: unrecognized command line option ‘-Wno-implicit-fallthrough’
+Linking CXX executable cmTC_cd473
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cd473.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_cd473.dir/src.cxx.o  -o cmTC_cd473 -rdynamic 
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 나감
+
+===== END =====
+
+Build output check failed:
+    Regex: 'unrecognized .*option'
+    Output line: 'cc1: warning: unrecognized command line option ‘-Wno-implicit-fallthrough’'
+Compilation failed:
+    source file: '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c'
+    check option: ' -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Winit-self -Wno-narrowing -Wno-comment  -Wno-implicit-fallthrough'
+===== BUILD LOG =====
+Change Dir: /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_0c97e/fast"
+/usr/bin/make -f CMakeFiles/cmTC_0c97e.dir/build.make CMakeFiles/cmTC_0c97e.dir/build
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 들어감
+Building C object CMakeFiles/cmTC_0c97e.dir/src.c.o
+/usr/bin/cc    -fPIE   -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Winit-self -Wno-narrowing -Wno-comment -Wno-implicit-fallthrough -o CMakeFiles/cmTC_0c97e.dir/src.c.o   -c /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c:1:0: warning: ignoring #pragma   [-Wunknown-pragmas]
+ #pragma
+ ^
+cc1: warning: unrecognized command line option ‘-Wno-implicit-fallthrough’
+Linking C executable cmTC_0c97e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0c97e.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_0c97e.dir/src.c.o  -o cmTC_0c97e -rdynamic 
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 나감
+
+===== END =====
+
+Build output check failed:
+    Regex: 'command line option .* is valid for .* but not for C'
+    Output line: 'cc1: warning: command line option ‘-fvisibility-inlines-hidden’ is valid for C++/ObjC++ but not for C'
+Compilation failed:
+    source file: '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c'
+    check option: ' -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Winit-self -Wno-narrowing -Wno-comment -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections  -msse -msse2 -msse3 -fvisibility=hidden  -fvisibility-inlines-hidden'
+===== BUILD LOG =====
+Change Dir: /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_91424/fast"
+/usr/bin/make -f CMakeFiles/cmTC_91424.dir/build.make CMakeFiles/cmTC_91424.dir/build
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 들어감
+Building C object CMakeFiles/cmTC_91424.dir/src.c.o
+/usr/bin/cc    -fPIE   -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Winit-self -Wno-narrowing -Wno-comment -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections -msse -msse2 -msse3 -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/cmTC_91424.dir/src.c.o   -c /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c
+cc1: warning: command line option ‘-fvisibility-inlines-hidden’ is valid for C++/ObjC++ but not for C
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.c:1:0: warning: ignoring #pragma   [-Wunknown-pragmas]
+ #pragma
+ ^
+Linking C executable cmTC_91424
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_91424.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_91424.dir/src.c.o  -o cmTC_91424 -rdynamic 
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 나감
+
+===== END =====
+
+Determining if the system is big endian passed with the following output:
+Change Dir: /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_2795b/fast"
+/usr/bin/make -f CMakeFiles/cmTC_2795b.dir/build.make CMakeFiles/cmTC_2795b.dir/build
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 들어감
+Building C object CMakeFiles/cmTC_2795b.dir/TestEndianess.c.o
+/usr/bin/cc    -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Winit-self -Wno-narrowing -Wno-comment -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections  -msse -msse2 -msse3 -fvisibility=hidden  -fPIE   -o CMakeFiles/cmTC_2795b.dir/TestEndianess.c.o   -c /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/TestEndianess.c
+Linking C executable cmTC_2795b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2795b.dir/link.txt --verbose=1
+/usr/bin/cc     -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Winit-self -Wno-narrowing -Wno-comment -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections  -msse -msse2 -msse3 -fvisibility=hidden     -Wl,--gc-sections  CMakeFiles/cmTC_2795b.dir/TestEndianess.c.o  -o cmTC_2795b -rdynamic 
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 나감
+
+TestEndianess.c:
+/* A 16 bit integer is required. */
+typedef unsigned short cmakeint16;
+
+/* On a little endian machine, these 16bit ints will give "THIS IS LITTLE ENDIAN."
+   On a big endian machine the characters will be exchanged pairwise. */
+const cmakeint16 info_little[] =  {0x4854, 0x5349, 0x4920, 0x2053, 0x494c, 0x5454, 0x454c, 0x4520, 0x444e, 0x4149, 0x2e4e, 0x0000};
+
+/* on a big endian machine, these 16bit ints will give "THIS IS BIG ENDIAN."
+   On a little endian machine the characters will be exchanged pairwise. */
+const cmakeint16 info_big[] =     {0x5448, 0x4953, 0x2049, 0x5320, 0x4249, 0x4720, 0x454e, 0x4449, 0x414e, 0x2e2e, 0x0000};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_little[argc];
+  require += info_big[argc];
+  (void)argv;
+  return require;
+}
+
+
+Build output check failed:
+    Regex: 'unrecognized .*option'
+    Output line: 'cc1plus: warning: unrecognized command line option ‘-Wno-misleading-indentation’'
+Compilation failed:
+    source file: '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx'
+    check option: ' -Wno-misleading-indentation'
+===== BUILD LOG =====
+Change Dir: /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_c097c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_c097c.dir/build.make CMakeFiles/cmTC_c097c.dir/build
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 들어감
+Building CXX object CMakeFiles/cmTC_c097c.dir/src.cxx.o
+/usr/bin/c++     -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security   -Winit-self -Wpointer-arith  -Wsign-promo  -Winit-self -Wno-narrowing -Wno-delete-non-virtual-dtor -Wno-comment -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections  -msse -msse2 -msse3 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-shadow -Wno-unused -Wno-sign-compare -Wno-undef -Wno-missing-declarations -Wno-uninitialized -Wno-switch -Wno-parentheses -Wno-array-bounds -Wno-extra -Wno-deprecated-declarations  -fPIE   -Wno-misleading-indentation -o CMakeFiles/cmTC_c097c.dir/src.cxx.o -c /home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx
+/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp/src.cxx:1:0: warning: ignoring #pragma   [-Wunknown-pragmas]
+ #pragma
+ ^
+cc1plus: warning: unrecognized command line option ‘-Wno-misleading-indentation’
+Linking CXX executable cmTC_c097c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c097c.dir/link.txt --verbose=1
+/usr/bin/c++      -fsigned-char -W -Wall -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -Wformat -Werror=format-security   -Winit-self -Wpointer-arith  -Wsign-promo  -Winit-self -Wno-narrowing -Wno-delete-non-virtual-dtor -Wno-comment -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -ffunction-sections -fdata-sections  -msse -msse2 -msse3 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-shadow -Wno-unused -Wno-sign-compare -Wno-undef -Wno-missing-declarations -Wno-uninitialized -Wno-switch -Wno-parentheses -Wno-array-bounds -Wno-extra -Wno-deprecated-declarations     -Wl,--gc-sections  CMakeFiles/cmTC_c097c.dir/src.cxx.o  -o cmTC_c097c -rdynamic 
+make[1]: 디렉터리 '/home/laply/study/StudyMe/openCV/opencv-3.4.0/bulid/CMakeFiles/CMakeTmp' 나감
+
+===== END =====
+
