@@ -1,0 +1,27 @@
+-----------------------------------------------
+-> webnautes.tistory.com/1030
+
+
+sudo apt-get update
+sudo apt-get upgrade
+
+install developer tools used to compile openCV 3.0:
+-- sudo apt-get install build-essential cmake git pkg-cinfig
+
+install librearies and packages used to read various image format from disk:
+-- sudo apt-get install libjpeg8-dev livtiff4-dev libjasper-dev libpng12-dev
+
+install a few libraries used ro read video formats from disk:
+-- sudo apt-get install libavcidec-dev libavformat-dev livswscale-dev livc4l-dev
+
+install GTK so we can use opencv's GUI features:
+-- sudo apt-get install libgtk2.0-dev
+
+install packages that are used to optimize various funtions inside opencv, such as matrix operations:
+-- sudo apt-get install libatlas-base-dev gfortran
+
+install OpenCV
+
+wget -o opencv.zip https://github.com/Itseez/opencv/archive/3.3.0.zip
+unzip opencv.zip
+
