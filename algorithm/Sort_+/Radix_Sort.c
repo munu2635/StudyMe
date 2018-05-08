@@ -31,7 +31,7 @@ void MakeRandomNumber() {
 	srand((unsigned)time(NULL));
 
 	while (i < MAX) {
-		Num = rand()%MAX;
+		Num = rand() % 100;
 		if(!IsNumberExit(Num, i)) {
 			Buf[i] = Num;
 			i++;
@@ -50,7 +50,7 @@ void RadixSort() {
 		Put(digit, num);
 	}
 
-	printf("\n의 자릿수로 정렬된 숫자 리스트\n");
+	printf("\n1의 자릿수로 정렬된 숫자 리스트\n");
 
 	for(i = 0; i < MAX; i++) {
 		printf("\n%d의 자리 : ", i);
@@ -65,7 +65,7 @@ void RadixSort() {
 	}
 
 	printf("\n\n1차 정렬 후 Buf 안 데이터들 \n");
-	Displaybuffer();
+	DisplayBuffer();
 
 	j = 0;
 
@@ -76,7 +76,7 @@ void RadixSort() {
 	}
 
 
-	printf("\n10d의 자릿수로 정렬 된 숫자 리스트\n");
+	printf("\n10의 자릿수로 정렬 된 숫자 리스트\n");
 
 	for(i = 0; i < MAX; i++) {
 		printf("\n%d의 자리 : " , i);
@@ -92,7 +92,6 @@ void RadixSort() {
 	}
 	printf("\n\n2차 정렬 후 Buf 안 데이터들\n");
 	DisplayBuffer();
-
 }
 
 void DisplayBuffer() {
@@ -134,12 +133,11 @@ void Put(int index, int num) {
 	ptrNode = (Node *)malloc(sizeof(Node));
 	ptrNode->Data = num;
 
-	if(Front[index]->Next == Rear[index]) {
+	if ( Front[index]->Next == Rear[index] ) {
 		Front[index]->Next = ptrNode;
 		ptrNode->Next = Rear[index];
 		Rear[index]->Next = ptrNode;
-	}
-	else {
+	} else {
 		Rear[index]->Next->Next = ptrNode;
 		Rear[index]->Next = ptrNode;
 		ptrNode->Next = Rear[index];
