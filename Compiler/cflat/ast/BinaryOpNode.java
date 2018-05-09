@@ -1,7 +1,7 @@
 // 임의의 2항 연산을 표현하는 노드 및 노드에 의한 식 표현의 예
 
-package Compiler.ast;
-import type.Type;
+package Compiler.cflat.ast;
+import Compiler.cflat.type.Type;
 
 public class BinaryOpNode extends ExprNode {
 	protected String operator;

@@ -1,4 +1,4 @@
-package Compiler.ast;
+package Compiler.cflat.ast;
 import java.io.printstream;
 
 //오류가 있는 문장이나 식이 들어 있는 파일과 행 번호를 표시해준다.
