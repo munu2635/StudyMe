@@ -1,3 +1,11 @@
+option {
+	STATIC = false;
+	DEBUG_PASER = true;
+	UNICODE_INPUT = true;
+	JDK_VERSION = '1.5';
+}
+
+
 AST compilation_unit():
 {
 	Token t;
