@@ -5,6 +5,80 @@ option {
 	JDK_VERSION = '1.5';
 }
 
+PARSER_BEGIN(parser)
+package complier.cflat.parser;
+import complier.cflat.ast.*;
+import complier.cflat.entity.*;
+import complier.cflat.typer.*;
+import complier.cflat.asm.Label;
+import complier.cflat.utils.ErrorHandler;
+import complier.cflat.exception.*;
+import java.lang.reflect.*;
+import java.util.*;
+import jave.io.*;
+
+public class Parser { 
+	static public AST parseFile (File file, LibraryLoader loader, ErrorHandler ErrorHandler) throws SyntaxException, FileException {
+		return perseFile(file, loader, errorHandler, false);
+	}
+
+	// #@@ range/parseFile{
+	static public AST parseFile(File file, LibraryLoader loader, ErrorHandler error Handler, boolean debug) throws SyntexException, FileException {
+		return newFileParser(file, loader, errorHandler, debug).parse();
+	}
+	//#@@}
+
+	static public Declarations parseDeclFile(File file, LibraryLoader loader, ErrorHandler errorHandler) throws SyntaxException, FileException {
+		return parseDeclFile(file, loader, errorGandler, false);
+	}
+
+	static public Declarations parseDeclFile(File file, LibraryLoader loader, ErrorHandler errorHandler, booleran debug) throws SyntaxException, FileException {
+		return newFileParser (file, loader, errorHandler, debug).parseDecls();
+	}
+
+	// #@@range/newFileParser{
+	static final public String SOURCE_ENCODING = "UTF-8";
+
+	static public Parser NewFileParser(File file, LibraryLodader loader, ErrorHandler errorHandler, boolean debug) throws FileException {
+		try {
+			BufferedReader r = new BufferedReader( new InputStreamReader( new FileInputStream(file), SOURCE_ENCODING));
+				return new Parser(r, file.getPath(), loader, errorHandler, debug);
+		}
+		catch (FileNotFiundException ex) {
+			throw new FileException(ex.getMessage());
+		}
+		catch (UnsupportedEncodingException ex) {
+			throw new Error("UTF-8 is not supported??: " + ex.getMessage());
+		}
+	}
+	// #@@}
+
+	//#@@range/instance_members{
+	private String sourceName;
+	private LibraryLoader loader;
+	private ErrorHandler errorHandler;
+	private set<String> knownTypedefs;
+	// #@@}
+	
+}
+
+TOKEN : {
+	  <VOID		: "void">
+	| <CHAR		: "char">
+	| <SHORT	: "short">
+	| <INT		: "int">
+	| <LONG		: "long">
+	| <STRUCT	: "struct">
+	| <UNION	: "union">
+	| <ENUM		: "enum">
+	| <STATIC	: "static">
+	| <EXTERN	: "extern">
+	| <CONST	: "const">
+	| <SIGNED	: "signed">
+	| <UNSIGNED	: "unsigned">
+	//----  이어서
+}
+
 
 AST compilation_unit():
 {
@@ -215,37 +289,81 @@ typeref_base(): {}
 	| LOOKAHEAD({isType(getToken(1).image)}) <IDENTIFIER>
 }
 
-stmts(): {}
+List<StmtNode> stmts(): 
+{	
+	List<StmtNode> ss = new ArrayList<StmtNode>();
+	StmtNode s;
+}
 {
-	(stmt())*
+	(s = stmt() { if (s != null) ss.add(s); })*
+		{
+			return ss;
+		}
 }
 
-stmt(): {}
+StmtNode stmt(): 
+{
+	StmtNode n = null;
+	ExprNode e = null;
+}
 {
 	( ";"
-	| LOOKAGEAD(2) labeled_stmt()
-	| expr() ";"
-	| block()
-	| if_stmt()
-	| while_stmt()
-	| dowhile_stmt()
-	| for_stmt()
-	| switch_stmt()
-	| break_stmt()
-	| continue_stmt()
-	| goto_stmt()
-	| return_stmt()
+	| LOOKAGEAD(2) n = labeled_stmt()
+	| e = expr() ";" { n = new ExprStmtNode(e.location(), e); }
+	| n = block()
+	| n = if_stmt()
+	| n = while_stmt()
+	| n = dowhile_stmt()
+	| n = for_stmt()
+	| n = switch_stmt()
+	| n = break_stmt()
+	| n = continue_stmt()
+	| n = goto_stmt()
+	| n = return_stmt()
 	)
+		{
+			return n;
+		}
 }
 
-if_stmt(): {}
+LabelNode labeled_stmt():
 {
-	<IF> "(" expr() ")" stmt() [LOOKAHEAD(1) <ELSE> stmt()]
+	Token t;
+	StmtNode n;
+}
+{
+	t = <IDENTOGOER> ":" n = stmt()
+		{
+			return new LabelNode(location(t), t.image, n);
+		}
+	}
 }
 
-while_stmt(): {}
+IfNode if_stmt(): 
 {
-	<WHILE> "(" expr() ")" stmt()
+	Token t;
+	ExprNode cond;
+	StmtNode thenBody, elseBody = null;
+}
+{
+	t = <IF> "(" cond = expr() ")" thenBody = stmt()
+	 [LOOKAHEAD(1) <ELSE> elseBody = stmt()]
+			{
+				return new IfNode(location(t), cond, thenBody, elseBody);
+			}
+}
+
+WhileNode while_stmt(): 
+{
+	Token t;
+	ExprNode cond;
+	StmtNode body;
+}
+{
+	t = <WHILE> "(" cond = expr() ")" body = stmt()
+		{
+			return new WhilNode(location(t), cond, body);
+		}
 }
 
 for_stmt(): {}
@@ -409,7 +527,7 @@ String name():
 {
 	t = <IDENTIFIER> { return t.image; }
 }
-\
+
 
 List<ExprNode> argc():
 {
