@@ -59,7 +59,99 @@ public class Parser {
 	private ErrorHandler errorHandler;
 	private set<String> knownTypedefs;
 	// #@@}
+
+
+	public Parser(Reader s, String name, 
+			LibraryLoader loader, ErrorHandler erroHandler) {
+		this(s, name, loader, errorHandler, false);
+	}
+
+	public Parser(Reader s, String name, 
+			LibraryLoader loader, ErrorHandler errorHandler, boolean debug) {
+		this(s);
+		this.sourceName = name;
+		this.loader = loader;
+		this.errorHandler = errorHandler;
+		this.knownTypedefs = new HashSet<String>();
+		if (febug) {
+			enable_tracing();
+		} else {
+			disable_tracing();
+		}
+
+	}
+
+	public AST parse() throws SyntexExcption {
+		try {
+			return compilation_unit();
+		}
+		catch ( TokenMgrError err ) {
+			throw new SyntaxException(err.getMessage());
+		}
+		catch ( ParseException ex) {
+			throw new SyntexException(ex.getMessage());
+		}
+		catch ( LookaheadSuccess err) {
+			throw new SyntxEXception("syntax error");
+		}
+	}
+
+	public Declarations parseDecls() throws SyntaxException {
+		try {
+			return declaration_file();
+		}
+		catch (TokenMgrError ex) {
+			throw new SyntaxException(ex.getMessage());
+		{
+		catch (ParseException ex) {
+			throw new SyntexException(ex.getMessage());
+		}
+	}
+
+	private void addKnownTypedefs(List<TyperdefNode> typedefs) {
+		for (TypedefNode n : typedefs) {
+			addType(n.name());
+		}
+	}
+
+	private void addType(String name) {
+		knowTypedefs.add(name);
+
+	}
+
+	private boolean isType(String name) {
+		knownTypedefs.add(name);
+	}
+
+	private IntegerListeralNode integerNode(Location loc, String image) {
+		long i = integerValue(image);
+		if ( image.endWith("UL")) {
+			return new IntegerListeralNode(loc, IntegerTypeRef().ulongRef(), i);
+		} else if (image.endsWith("L")) {
+			return new IntegerListeralNode(Ioc, IntegerTypeRef().longReg(), i);
+		} else if (image.endswith("U")) {
+			return new IntegerListeralNode(Ioc, IntegerTypeFef.uintRef, 1);
+		else {
+			retirn new IntegerLiterealNode(Ioc, IntegerTypeRef.intRef(),i);
+		}
+	}
+
 	
+		
+}
+
+PARSER_END(Parser)
+
+
+
+SPECIAL_TOKEN: { <SPACES: ([" ", "\t", "\n", "\r", "\f"])+> }
+
+MORE: { <"/*"> : IN_BLOCK_COMMET }
+<IN_BLOCK_COMMENT> MORE: { <~[]> }
+<IN_BLOVK_COMMENT> SPECIAL_TOKEN: { <BLOCK_COMMNET: "*/"> : DEFAULT }
+
+SPECIAL_TOKEN: {
+	<LINE_COMMENT: "//" (~["\n", "\r"])* ("\n" | "\r\n" | "\r")?>
 }
 
 TOKEN : {
@@ -76,9 +168,49 @@ TOKEN : {
 	| <CONST	: "const">
 	| <SIGNED	: "signed">
 	| <UNSIGNED	: "unsigned">
-	//----  이어서
+	| <IF		: "if">
+	| <ELSE		: "else">
+	| <SWITCH	: "switch">
+	| <CASE		: "case">
+	| <DEFAULT	: "default">
+	| <WHILE	: "while">
+	| <DO		: "do">
+	| <FOR		: "for">
+	| <RETURN	: "return">
+	| <BREAK	: "break">
+	| <CONTINUE	: "continue">
+	| <GOTO		: "goto">
+	| <TYPEDEF	: "typedef">
+	| <IMPORT	: "import">
+	| <SIZEOF	: "sizeof">
 }
 
+TOKEN: { 
+	<IDENTIFIER: ["a"-"z", "A"-"Z", "_"] (["a"-"z", "A"-"Z", "_", "0"-"9"])*>
+}
+
+TOKEN: {
+	<INTEGER: ["1"-"9"] (["0"-"9"])* ("U")? ("L")?
+		| "0" ["x", "X"] (["0"-"9", "a"-"f", "A"-"F"])+ ("U")? ("L")?
+		| "0" (["0"-"7"])* ("U")? ("L")?
+		>
+}
+
+MORE: { <"'"> : IN_CHARACTER }
+<IN_CHARACTER> MORE: {
+	<~[":", "\\", "\n", "\r"]>	: CHARACTER_TERM
+	| <"\\" (["0"-"7"]){3}>		: CHARACTER_TERM
+	| <"\\" ~[]>			: CHARACTER_TERM
+}
+<CHARACTER_TERM> TOKEN: { <CHRACTER: "'"> : DEFAULT } 
+
+MORE: { <"\""> : IN_STRING }
+<IN_STRING> MORE: {
+	<(~["\"", "\\", "\n", "\r"])+>
+	| <"\\" (["0"-"7"]) {3}>
+	| <"\\" ~[]>
+}
+<IN_STRING> TOKEN: { <STRING: "\""> : DEFAULT } 
 
 AST compilation_unit():
 {
@@ -191,102 +323,320 @@ Declarations top_defs() :
 		}
 }
 
-defvars(): {}
+List<DefinedVariable> defvars():
 {
-	storage() type() name() ["=" expr()]
-		    ("," name() ["=" expr()]* ";"
+	List<DefinedVariable> defs = new ArrayList<DefinedVariable>();
+	boolean priv;
+	TypeNode type;
+	String name;
+	ExprNode init = null;
+}
+{
+	priv = storage() type = type() name = name() ["=" init =  expr()]
+		{
+			defs.add(new DefinedVariable(priv, type, name, init));
+			init = null;
+		}
+	("," name = name() ["=" init =  expr()]
+		{
+			defs.add(new DefinedVariable(priv, type, name, init));
+		}
+	)* ";"
+		{
+			return def;
+		}
+}
+Constant defconst():
+{
+	TypeNode type;
+	String name;
+	ExprNode value;
+}
+{
+	<CONST> type = type() name = name() "=" value = expr() ";"
+		{
+			return new Constant(type, name, value);
+		}
+
 }
 
-storage(): {}
+boolean storage(): 
 {
-	[<STATIC>]
+	Token t = null;
+}
+{
+	[t = <STATIC>] { return (t == null ? false : true);}
+
 }
 
-defun(): {}
+DefinedFunction defun(): 
 {
-	storage() typedef() name() "(" params() ")" block()
+	boolean priv;
+	TypeRef	ret;
+	String n;
+	Params ps;
+	BlockNode body;
 }
+{
+	priv = storage() ret = typedef() n = name() "(" ps = params() ")"body = block()
+		{
+			TypeRef t = new FunctionTypeRef(ref, ps.parametersTypeRef());
+			return new DefinedFunction(priv, new TypeNode(t), n, ps, body);
+		}
+}		
 	
-params(): {}
+Params params(): 
 {
-	LOOKAHEAD<VOID> ")") <VOID>
-	| fixedparams() ["," "..."]
+	Token t;
+	Params params;
+}
+{
+	LOOKAHEAD<VOID> ")") 
+	t = <VOID>
+		{ 
+			return new Params(location(t), new ArrayList<Parameter>());
+		}
+	| params = fixedparams() 
+			["," "..." { params.acceptVarargs(); }]
+		{
+			return params;
+		}	
 }
 
-fixedparams() : {}
+Params fixedparams() : 
 {
-	params() (LOOKAGEAD(2) "," param())*
+	List<Parameter> params = new ArrayList<Parameter>();
+	Parameter param, param1;
+}
+{
+	param1 = params() { params.add(param1); }
+	(LOOKAGEAD(2) "," param =  param())* { params.add(param); } )*
+		{
+			return new Params(param1.location(), params);
+		}
 }
 
-param(): {}
+Parameter param(): 
 {
-	type() name()
+	TypeNode t;
+	String n;
+}
+{
+	t = type() n = name() { return new Parameter(t, n); }
 }
 
-block(): {}
+BlockNode block(): 
 {
-	"(" defvar_list() stmts() "}"
+	Token t;
+	List<DefinedVariable> vars;
+	List<StmtNode< stmts;
+}
+{
+	t = "{" vars = defvar_list() stmts = stmts() "}"
+		{
+			return new BlockNode(location(t), vars, stmts);
+		}
 }
 
-defstruct(): {}
+List<DefinedVariable> defvar_list():
+{	
+	List<DefinedVariable> result = new ArrayList<DefinedVariable>();
+	List<DefinedVariable> vars;
+}
 {
-	<STRUCT> name() number_list() ";"
+	( vars = defvars() { result.addAll(vars); } )*
+		{
+			return result;
+		}
 }
 
-defuntion() : {}
+StructNode defstruct(): 
 {
-	<UNION> name() number_list() ";"
-}	
-
-member_list() :{}
+	Token t;
+	String n;
+	List<Slot> membs;
+}
 {
-	"{" (slot() ";")* "}"
+	t = <STRUCT> n = name() membs = number_list() ";"
+		{
+			return new StructNode(location(t), new StructTypeRef(n), n, membs);
+		}
 }
 
-slot(): {}
+UnionNode defuntion(): 
 {
-	type() name()
+	Token t;
+	Stirng n;
+	List<Slot> membs;
 }
+{
+	t = <UNION> n = name() membs = number_list() ";"
+		{
+			return new UnionNode(location(t), new UnionTypeRef(n), n, membs);
+		}
+}
+
+List<Slot> member_list():
+{
+	List<Slot> membs = new ArrayList<Slot>();
+	Slot s;
+}
+{
+	"{" (s = slot() ";"{ membs.add(s); })* "}"
+		{
+			return membs;
+		}
+}
+
+Slot slot(): 
+{
+	TypeNode t;
+	String n;
+}
+{
+	t = type() n = name() { return new Slot(t, n); }
+}
+
+UndefinedFunction funcdecl():
+{
+	TypeRef ret;
+	String n;
+	Params ps;
+}
+{
+	<EXTERN> ret = typeref() n = name() "(" ps = params() ")" ";"
+		{
+			TypeRef t = new FunctionTypeRef(ref, ps.paramtersTypeRef());
+			return new UNdefinedFunction(new TypeNode(t), n, ps);
+		}
+}
+
+UndefinedVariable vardecl():
+{
+	TypeNode t;
+	String n;
+}
+{
+	<EXTERN> t = type() n = name() ";"
+		{
+			return new UndefinedVariable(t, n);
+		}
+}
+
+TypeNode type():
+{ TypeRef ref; }
+{
+	ref = typeref() { return new TypeNode(ref); }
+}
+
+
 
 struct point {
 	int x;
 	int y;
 };
 
-typedef(): {}
+TypeRefNode typedef(): 
 {
-	<TYPEDEF> typeref() <IDENTIFIER> ";"
+	Token t;
+	TypeRef ref;
+	Token newname;
+}
+{
+	t = <TYPEDEF> ref =  typeref() newname = <IDENTIFIER> ";"
+		{
+			addType(newname.image);
+			return new TypedefNode(location(t), ref, newname.image);
+		}
 }
 
-type(): {}
+TypeRef typeref(): 
 {
-	typeref()
+	TypeRef ref;
+	Token t;
+	ParamTypeRefs params;
 }
-
-typeref(): {}
 {
-	typeref_base()
-	(LOOKAHEAD(2) "[" "]"
-	| "[" <INTEGER> "]"
+	ref = typeref_base()
+	(LOOKAHEAD(2) 
+	"[" "]"
+		{
+			ref = new ArrayTypeRef(ref);
+		}
+	| "[" t = <INTEGER> "]"
+		{
+			ref = new ArrayTypeRef(ref, integerValue(t.image));
+		}
 	| "*" //포인터
+		{
+			ref = new PointerTypeRef(ref);
+		}
 	| "(" param_typerefs() ")"
+		{
+			ref = new FunctionTypeRef(ref, params);
+		}
 	)*
+		{
+			return ref;
+		}
 }
 
-typeref_base(): {}
+ParamTypeRefs param_typeref():
 {
+	ParamTypeRefs params;
+}
+{
+	LOOKAHEAD(<VOID> ")")
 	<VOID>
-	| <CHAR>
-	| <SHORT>
-	| <INT>
-	| <LONG>
-	| LOOKAHEAD(2) <UNSIGNED> <CHAR>
-	| LOOKAHEAD(2) <UNSIGNED> <SHORT>
-	| LOOKAHEAD(2) <UNSIGNED> <INT>
-	| <UNSIGNED> <LONG>
-	| <STRUCT> <IDENTIFIER>
-	| <UNION> <IENTIFIER>
+		{
+			return new ParamTypeRef(new ArrayList<TypeRef>());
+		}
+	| params = fixedparam_typerefs()
+		[ "," "..." { params.acceptVararges(); }]
+		{
+			return params;
+		}
+}
+
+ParamTypeRefs fixedparam_typrefs();:
+{
+	List<TypeRef> ref = new ArrayList<TypeRef>();
+	TypeRefs ref;
+}
+{
+	ref = typeref() { refs.add(ref); }
+	( LOOKAHEAD(2) "," ref = typeref() { refs.add(ref); } )*
+	<VOID>
+		{
+			return new ParamTypeRefs(refs);
+		}
+		
+}
+
+TypeRef typeref_base(): 
+{
+	Token t, name;
+}
+{
+	t = <VOID>	{ return new VoidTypeRef(location(t)); }
+	| t = <CHAR>	{ return IntegerTypeRef.charRef(location(t)); }
+	| t = <SHORT>	{ return IntegerTypeRef.shortRef(location(t)); }
+	| t = <INT>	{ return IntegerTypeRef.intRef(location(t)); }
+	| t = <LONG>	{ return IntegerTypeRef.longRef(location(t)); }
+	| LOOKAHEAD(2) t = <UNSIGNED> <CHAR>
+		{ return IntegerTypeRef.ucharRef(location(t)); }
+	| LOOKAHEAD(2) t = <UNSIGNED> <SHORT>
+		{ return IntegerTypeRef.ushortRef(location(t)); }
+	| LOOKAHEAD(2) t = <UNSIGNED> <INT>
+		{ return IntegerTypeRef.uintRef(location(t)); }
+	| t = <UNSIGNED> <LONG>
+		{ return IntegerTypeRef.ulongRef(location(t)); }
+	| t = <STRUCT> <IDENTIFIER>
+		{ return new StructTypeRef(location(t), name.image); }
+	| t = <UNION> <IENTIFIER>
+		{ return new UnionTypeRef(location(t), name.image); }
 	| LOOKAHEAD({isType(getToken(1).image)}) <IDENTIFIER>
+		{ return new UserTypeRef(location(name), name.image); }
 }
 
 List<StmtNode> stmts(): 
@@ -365,46 +715,166 @@ WhileNode while_stmt():
 			return new WhilNode(location(t), cond, body);
 		}
 }
-
-for_stmt(): {}
+DoWhileNode dowhile_stmt():
 {
-	<FOR> "(" [expr()] ";" [expr()] ";" [expr()] ")" stmt()
+	Token t;
+	ExprNode cond;
+	StmtNode body;
+}
+{
+	t = <DO> body = stmt() <WHILE> "(" cond = expr() ")" ";"
+		{
+			return new DoWhileNode(location(t), body, cond);
+		}
+
+}
+	
+ForNode for_stmt(): 
+{
+	Token t;
+	ExprNode init = null, cond = null, incr = null;
+	StmtNode body;
+}
+{
+	t = <FOR> "(" [init = expr()] ";" 
+		[cond = expr()] ";" 
+		[incr = expr()] ")" body = stmt()
+	{
+		return new ForNode(location(t), init, cond, incr, body);
+	}
 }
 
-break_stmt(): {}
+SwitchNode switch_stmt():
 {
-	<BREAK> ";"
+	Token t;
+	ExprNode cond;
+	List<CaseNode> bodies;
+}
+{
+	t = <SWITCH> "(" cond = expr() ")" "{" bodies = case_clauses() "}"
+		{
+			return new SwitchNode(location(t), cond, bodies);
+		}
+}
+List<CaseNode> case_clauses():
+{
+	List<CaseNode> clauses = new ArrayList<CaseNode>();
+	caseNode n;
+}
+{
+	( n = case_clause() { clauses.add(n); })*
+		[ n = default_claise() { claises.add(n); }]
+		{
+			return clauses;
+		}
 }
 
-return_stmt(): {}
+CaseNOde case_clause():
 {
-	LOOKAHEAD(2) <RETURN> ";"
-	| <RETURN> expr() ";"
+	List<ExprNode> values;
+	BlockNode body;
+}
+{
+	values = cases() body = case_body()
+		{
+			return new CaseNode(body.location(), values, body);
+		}
+}
+
+List<ExprNode> cases():
+{	
+	List<ExprNode> values = new ArrayList<ExprNode>();
+	ExprNode n;
+}
+{
+	(<CASE> n = primary() ":" { values.add(n); })+
+		{
+			return values;
+		}
+}
+BlockNode case_body():
+{
+	LinkedList<StmtNode> stmts = new LinkedList<StmtNode>();
+	StmtNode s;
+}
+{
+	(s = stmt() { if (s != null) stmts.add(s); })+
+		{
+			if(! (stmts.getLast() instanceof BreakNode)) {
+				throw new ParseException("missing break statement at the last of case clause");
+			}
+			return new BlockNode(stmts.get(0).location(), new ArrayList<DefinedVariable>(), stmts);
+		}
+}
+
+GotoNode goto_stmt():
+{ Token t, name; }
+{
+	t = <GOTO> name = <IDNETIFIER> ";"
+		{
+			return new GotoNode(location(t), name.image);
+		}
+}
+
+BreakNode break_stmt(): 
+{ Token t; }
+{
+	t = <BREAK> ";" { return new BreakNode(location(t)); }
+}
+
+ContinueNode continue_stmt():
+{ Token t; }
+{
+	t = <CONTINUE> ";" { return new ContinueNode(location(t)); }
+}
+
+ReturnNode return_stmt(): 
+{
+	Token t;
+	ExprNode expr;
+}
+{
+	LOOKAHEAD(2) t = <RETURN> ";" { return new ReturnNode(location(t), null); }
+	| t = <RETURN> expr =  expr() ";" { returb bew ReturnNode(location(t), expr); }
 }
 
 
-expr(): {}
+ExprNode expr():
+{
+	ExprNode lhs, rhs, expr;
+	String op;
+}
 {
 	LOOKAHEAD(term() "=")
-	term() "=" expr()
+	lhs = term() "=" rhs = expr()
+		{
+			return new AssignNode(lhs, rhs);
+		}
 	| LOOKAHEAD(term() opassign_op())
-	term() opassion_op() expr()
-	|expr10()
+	lhs = term() op = opassion_op() rhs = expr()
+		{
+			return new OpAssignNode(lhs, op, rhs);
+		}
+	| expr = expr10()
+		{
+			return expr;
+		}
 }
 
-opassion_op(): {}
+String opassion_op(): {}
 {
-	( "+="
-	| "-="
-	| "*="
-	| "/="
-	| "%="
-	| "&="
-	| "|="
-	| "^="
-	| "<<="
-	| ">>="
+	( "+="	{ return "+"; }
+	| "-="	{ return "-"; }
+	| "*="	{ return "*"; }
+	| "/="	{ return "/"; }
+	| "%="	{ return "%"; }
+	| "&="	{ return "&"; }
+	| "|="	{ return "|"; }
+	| "^="	{ return "^"; }
+	| "<<=" { return "<<"; }
+	| ">>="	{ return ">>"; }
 	)
+		
 }
 
 expr10(): {}
