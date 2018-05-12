@@ -13,6 +13,7 @@ def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
 
 def on_publish(client, userdata, mid):
+    print("message published")
 
 mqttc = mqtt.Client()
 mqttc.on_connect = on_connect
