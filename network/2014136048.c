@@ -25,7 +25,7 @@ int listen_sock;
 
 void addClient(int s, struct sockaddr_in *newcliaddr, time_t now); 
 int getmax();
-void save_message(); //메세지 출력
+void save_message(char* buf, time_t now); //메세지 출력
 void control_data(); //접속자 수 달라졌을때 출력 
 void removeClient(int s);
 int tcp_listen(int host, int port, int backlog);
@@ -37,8 +37,7 @@ int main(int argc, char *argv[]){
 	int i, j, nbyte, accp_sock, addrlen = sizeof(struct sockaddr_in);
 	fd_set read_fds;
 	time_t now;
-	FILE *f;
-	f = fopen("save_message.txt", "W");
+
 
 	if(argc != 2){
 		printf("Usage : %s port \n", argv[0]);
@@ -83,7 +82,7 @@ int main(int argc, char *argv[]){
 
 				for ( j = 0; j < num_chat; j++)
 					send(clisock_list[j], buf, nbyte, 0);
-				save_message(buf, now, f);
+				save_message(buf, now);
 				printf("%s\n", buf);
 			}
 		}
@@ -123,7 +122,7 @@ int getmax(){
 	return max;
 }
 
-void control_data(){
+void control_data(){//새로운 client가 추가될때 마다 시간값이 변함 
 	int i;
 	printf("---------------------------------------\n");
 	printf("현재 서버 총 접속자수 : %d\n", num_chat);
@@ -135,10 +134,12 @@ void control_data(){
 	printf("---------------------------------------\n");
 }
 
-void save_message(char* buf, time_t now, FILE *f){
+void save_message(char* buf, time_t now){
+	FILE *f;
+	f = fopen("save_message.txt", "a");
 	time(&now);
-
-	fprintf(f, "(%lu), %s  -- %s\n", sizeof(buf), buf, ctime(&now));
+	printf("---------------------------------------\n");
+	fprintf(f, "(%lu)%s-%s", sizeof(buf), buf, ctime(&now));
 	fclose(f);
 }
 
