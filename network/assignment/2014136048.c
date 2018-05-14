@@ -19,7 +19,7 @@ char *START_STRING = " Connected to chat_server \n";
 int maxfdp1;
 int num_chat = 0;
 int clisock_list[MAX_SOCK];
-char *clisock_time[MAX_SOCK];
+time_t clisock_time[MAX_SOCK];
 char *clisock_ip[MAX_SOCK];
 int listen_sock;
 
@@ -95,7 +95,7 @@ void addClient(int s, struct sockaddr_in *newcliaddr, time_t now){
 	inet_ntop(AF_INET, &newcliaddr -> sin_addr, buf, sizeof(buf));
 	printf("new client : %s\n", buf);
 	clisock_list[ num_chat ] = s; 
-	time(&now); clisock_time[ num_chat ] = ctime(&now);
+	time(&now); clisock_time[ num_chat ] = now;
 	clisock_ip[ num_chat ] = inet_ntoa(newcliaddr->sin_addr);
 	num_chat++;
 	control_data();
@@ -129,7 +129,7 @@ void control_data(){//새로운 client가 추가될때 마다 시간값이 변�
 	printf("현재 접속 중인 클라이언트 IP - 접속시간\n");
 	printf("---------------------------------------\n");
 	for(i = 0; i < num_chat; i++){
-		printf("%s - %s", clisock_ip[i], clisock_time[i] );
+		printf("%s - %s", clisock_ip[i], ctime(&clisock_time[i]) );
 	}
 	printf("---------------------------------------\n");
 }
@@ -139,7 +139,7 @@ void save_message(char* buf, time_t now){
 	f = fopen("save_message.txt", "a");
 	time(&now);
 	printf("---------------------------------------\n");
-	fprintf(f, "(%lu)%s-%s", sizeof(buf), buf, ctime(&now));
+	fprintf(f, "(%lu)%s-%s", strlen(buf)-6, buf, ctime(&now));
 	fclose(f);
 }
 
