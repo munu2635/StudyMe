@@ -44,8 +44,29 @@ void main(){
 //	.cfi_offset 6, -16
 //	movq	%rsp, %rdp
 //	.cfi_def_cfa_register 6
+
+//	movl	$0, -4(%rbp)
+//	jmp	.L2
+// .L3:
+//	addl	$1, -4(%rbp)
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
 //-------------------------------------- 여기까지가 함수 선언/ 바디 시작
-//	= > printf("a");
+//case1	= > printf("a");
 //	movl	$97, %edi
 //	call	putchar
 //	nop
