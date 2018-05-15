@@ -2,7 +2,7 @@
 #define MAX 100 // 이게 어떤식으로 변환되는지 확인
 
 
-int ary[MAX]; // 요거 전역변수
+int Buf[MAX]; // 요거 전역변수
 
 int main() {
 
