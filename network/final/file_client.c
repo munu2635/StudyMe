@@ -57,58 +57,80 @@ int main(int argc, char *argv[]){
 
 	puts(" 클라이언트가 연결되었습니다. ");
 
-	while(fgets(buf, sizeof(buf), stdin) != NULL) {
-		printf("할 행동을 입력해주세요(get, put) -> ");
-		scanf("%s", &data);
+	while(1) {
+		printf("----------------------------------");
+		printf("할 행동을 입력해주세요.\n");
+		printf("get, put, exit\n->")
+		
 
-		if(data == GET_STRING)
-			put_and_send();
-		else if(data == PUT_STRING)
-			get_and_save();
-	}	
-
-
-	if(( pid = fork()) > 0 )
-		put_and_send(accp_sock);
-	else if ( pid == 0 )
-		get_and_save(accp_sock);
+		if(fgets(buf, sizeof(buf), stdin) != NULL) {
+			if(buf == GET_STRING)
+				put_and_send(s);
+			else if(buf == PUT_STRING)
+				get_and_save(s);
+			else if(buf == EXIT_STRING){
+				puts("end."); close(s) exit(0);
+			} else put("잘못 입력하셨습니다.\n");
+			
+		}	
+	}
 
 	close(listen_sock);
 	close(accp_sock);
 	return 0;
 }
-
+	
 
 int put_and_send(int sd){
 	char buf[ MAXLINE + 1 ];
 	int nbyte;
-	while(fgets(buf, sizeof(buf), stdin) != NULL) {
-		nbyte = strlen(buf);
-		write(sd, buf, strlen(buf));
-
-		if(strstr(buf, EXIT_STRING) != NULL) {
-			puts("Good bye....");
-			close(sd);
-			exit(0);
-		}
+	FILE *file = NULL;	
+	
+	printf("----------------------------------");
+	printf("보낼 데이터를 입력해주세요.\n");
+	printf("->");
+		
+	if(fgets(buf, sizeof(buf), stdin) == NULL)){
+		//error side 
 	}
+	
+	file =	fopen(buf, "wb");
+	fseek(file, 0 , SEEK_END);
+	fsize = ftell(file);
+	fseek(file, 0, SEEK_SET);	
+
+ 	fsize2 = htonl(fsize);
+	send(sd, &fsize2, strlen(fsize), 0);
+
 	return 0;
 }
 
 int get_and_save(int sd) {
 	char buf[ MAXLINE + 1 ];
 	int nbyte;
-	while(1) {
-		if((nbyte = read(sd, buf, MAXLINE))< 0 ){
-			perror("read fail");
-			close(sd);
-			exit(0);
-		}
-		buf[nbyte] = 0;
+	FILE *file = NULL;
+	size_t filesize = 0, bufsize = 0;
+	printf("----------------------------------");
+	printf("받을 데이터를 입력해주세요.\n");
+	printf("->");
 
-		if(strstr(buf, EXIT_STRING) != NULL)
-			break;
-		printf("%s", buf); 
+	if(fgets(buf, sizeof(buf), stdin) == NULL)){
+		//error side 
 	}
+	file = fopen(buf, "wb");
+
+	recv(sd, &filesize, sizeof(filesize), 0);
+	bufsize = 256;
+
+	while(filesize !=0){
+		if(filesize < 256)
+			bufsize = filesize;
+	
+		nbyte = recv(sd, buf, bufsize, 0);
+		filesize = filesize - nbyte;
+		fwrite(buf, sizeof(char), nbyte, file);
+		nbyte = 0;
+	}
+
 	return 0;
 }
