@@ -8,8 +8,11 @@
 #include <unistd.h>
 
 char *EXIT_STRING = "exit";
-int recv_and_print(int sd);
-int input_and_send(int sd);
+char *GET_STRING = "get";
+char *PUT_STRING = "put";
+int save(int sd);
+int send(int sd);
+
 
 
 #define MAXLINE 511
@@ -54,9 +57,9 @@ int main(int argc, char *argv[]){
 
 	puts(" 클라이언트가 연결되었습니다. ");
 	if(( pid = fork()) > 0 )
-		input_and_send(accp_sock);
+		send(accp_sock);
 	else if ( pid == 0 )
-		recv_and_print(accp_sock);
+		save(accp_sock);
 
 	close(listen_sock);
 	close(accp_sock);
@@ -64,7 +67,7 @@ int main(int argc, char *argv[]){
 }
 
 
-int input_and_send(int sd){
+int send(int sd){
 	char buf[ MAXLINE + 1 ];
 	int nbyte;
 	while(fgets(buf, sizeof(buf), stdin) != NULL) {
@@ -80,20 +83,25 @@ int input_and_send(int sd){
 	return 0;
 }
 
-int recv_and_print(int sd) {
+int save(int sd) {
 	char buf[ MAXLINE + 1 ];
 	int nbyte;
-	while(1) {
-		if((nbyte = read(sd, buf, MAXLINE))< 0 ){
-			perror("read fail");
-			close(sd);
-			exit(0);
-		}
-		buf[nbyte] = 0;
+	char getname[ MAXLINE + 1 ];
+	size_t filesize = 0, bufsize = 0; 
+	FILE *file = NULL; 
+	recv(sd, &getname, sizeof(getname), 0);
+	file = fopen(getname, "wb");
 
-		if(strstr(buf, EXIT_STRING) != NULL)
-			break;
-		printf("%s", buf); 
+	ntohl(filesize); 
+	recv(client_sockfd, &filesize,	sizeof(filesize), 0); 
+	printf("file size = [%d]\n", filesize); 
+	bufsize = 256; 
+	while(filesize != 0) { 
+		if(filesize < 256) bufsize = filesize; 
+		nbyte = recv(client_sockfd, buf, bufsize, 0);
+		filesize = filesize - nbyte; 
+		fwrite(buf, sizeof(char), nbyte, file); 
+		nbyte = 0; 
 	}
-	return 0;
+	close(file);
 }

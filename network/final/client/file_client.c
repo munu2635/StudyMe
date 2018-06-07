@@ -82,6 +82,8 @@ int put_and_send(int sd){
 		
 	if(fgets(buf, sizeof(buf), stdin) != NULL){
 		send(sd, &buf, sizeof(buf), 0);
+		
+
 		file =	fopen(buf, "r");
 		
 		fseek(file, 0, SEEK_END); 
@@ -96,7 +98,7 @@ int put_and_send(int sd){
 			fpsize = fread(buf, 1, 256, file); 
 			printf(buf);
 			nsize = nsize + fpsize; 
-			send(sd, buf, fpsize, 0); 
+			send(sd, busend(sd, &fsize2, sizeof(fsize), 0);f, fpsize, 0); 
 		}
 		close(file);
 	}
@@ -116,10 +118,15 @@ int get_and_save(int sd) {
 	if(fgets(buf, sizeof(buf), stdin) != NULL){
 
 		send(sd, &buf, sizeof(buf), 0);			
+		
 		file = fopen(buf, "wb");
 
 
 		recv(sd, &filesize, sizeof(filesize), 0);
+		if(sizeof(filesize) == 0){
+			printf("데이터가 없습니다.\n");
+			return 0;
+		}
 		bufsize = 256;
 
 		while(filesize !=0){
