@@ -15,5 +15,77 @@ package com.example.laply.msp_project;
 //------------------------------------------- 5/31
 // 추가내용
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.hardware.SensorManager;
+import android.location.LocationManager;
+import android.net.wifi.WifiManager;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+
 public class MainService {
+    LocationManager mLocation;  // gps
+    WifiManager mWifi;          // ap
+    SensorManager mSenser;      // senser
+                                // 알람 매니저
+
+
+    Timer timer = new timer();
+    TimerTask timertask = null;
+
+    @override
+    private void onCreate(){
+
+    }
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            // 걸음 수 있는지 여부
+            // 센서데이터 사용
+
+
+
+            // 걸음 수가 있다 1분 이상 이동시 움직임 표기
+            // "-분 움직임"
+            // 걸음수 측정하는 거 어떻게 여부 할건지 필요!!
+            // 주머니나, 상자에 담아서 움직일때의 미세한 움직임에 반응해야하니까 중요
+
+
+
+            // 걸음 수가 없다 5분 이상 체류시
+            // 지정된 장소에 있는지 확인 -----------------
+            // 먼저 ap를 분석하여 지정된 실내에 있는지 확인 후
+            // 아니라면 gps를 사용해 지정된 실외에 있는지 확인 후 종료 바로 종료할 수 있나?
+            // 지정된 장소가 아니라면 --------------------
+            // 사용된 gps값을 가져와서 위치파악
+
+            // 여기서는 실내에 있는지 실외에 있는지 파악하는게 중요
+            // 어떤방법이 중요한지
+            //"-분 체류 장소 -- 
+
+       }
+    };
+
+
+    //알람 매니저 사용 중요 // 얼마간에 간격으로 얼마나 측정할지 에너지 소비량확인할때 필요
+    public int onStartCommand(Intent intent, int flags, int startId){
+
+
+        startTimerTask();
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    private void startTimerTask(){
+
+    }
+
+    private void stopTimerTask(){
+
+    }
+    TextFileManager mFileger;
+
 }

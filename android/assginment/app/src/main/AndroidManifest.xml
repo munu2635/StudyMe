@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.laply.msp_project">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> // 위치정보
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> // 위치정보
+    <uses-permission android:name="android.permission.WAKE_LOCK"/> // 알람매니저 웨이크락 확인하기
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> // 와이파이 연결 확인
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/> // 와이파이 변경 확인
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> // 네트워크 상태확인
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> // 메모리 접근하는거 쓸건데 한번더 확인해주기 틀렸을듯
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,6 +24,11 @@
                 <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".MainService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
         //수정필요.
         <activity android:name=".SubActivity">
             <intent-filter>
@@ -31,11 +44,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service
-            android:name=".MainService"
-            android:enabled="true"
-            android:exported="false" >
-        </service>
         //에러이유 찾기
     </application>
 
